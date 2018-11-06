@@ -62,6 +62,11 @@ console.log(req.body);
 
 
 
+router.get('/test', function (req, res, next) {
+  return res.send('shit works');
+});
+
+
 module.exports = router;
 
 
