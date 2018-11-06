@@ -4,6 +4,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
+var port = process.env.PORT || 3000;
 
 // mongoose.connect('mongodb://localhost/coach-database'); //localhost database
 mongoose.connect('mongodb://vidas:vidas123@coachgo-shard-00-01-dqxa6.mongodb.net:27017/coachgo?ssl=true&authSource=admin');
@@ -52,6 +53,6 @@ app.use(function (err, req, res, next) {
   res.send(err.message);
 });
 
-app.listen(8080, function () {
-  console.log('Express app listening on port 3000');
+app.listen(port, function () {
+  console.log('Express app listening on port ', port);
 });
