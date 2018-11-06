@@ -5,11 +5,15 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
-mongoose.connect('mongodb://localhost/coach-database');
+// mongoose.connect('mongodb://localhost/coach-database'); //localhost database
+mongoose.connect('mongodb://vidas:mantas@coachgo-shard-00-01-dqxa6.mongodb.net:27017/coachgo?ssl=true&authSource=admin');
+
+
+
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
-
+console.log('connectio nsucess to db');
 });
 
 app.use(session({
