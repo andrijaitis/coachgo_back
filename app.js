@@ -7,7 +7,7 @@ var MongoStore = require('connect-mongo')(session);
 var port = process.env.PORT || 3000;
 
 // mongoose.connect('mongodb://localhost/coach-database'); //localhost database
-mongoose.connect('mongodb://vidas:vidas123@coachgo-shard-00-01-dqxa6.mongodb.net:27017/coachgo?ssl=true&authSource=admin');
+mongoose.connect('mongodb://vidas:mantas@coachgo-shard-00-01-dqxa6.mongodb.net:27017/coachgo?ssl=true&authSource=admin');
 
 
 
@@ -52,6 +52,7 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.send(err.message);
 });
+
 
 app.listen(port, function () {
   console.log('Express app listening on port ', port);
