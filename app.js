@@ -7,7 +7,7 @@ var MongoStore = require('connect-mongo')(session);
 var port = process.env.PORT || 3000;
 
 // mongoose.connect('mongodb://localhost/coach-database'); //localhost database
-mongoose.connect('mongodb://vidas:mantas@coachgo-shard-00-01-dqxa6.mongodb.net:27017/coachgo?ssl=true&authSource=admin');
+mongoose.connect('mongodb://vidas:vidas123@coachgo-shard-00-01-dqxa6.mongodb.net:27017/coachgo?ssl=true&authSource=admin');
 
 
 
@@ -29,9 +29,9 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-
+var allowedOrigins = ['http://localhost:4200 ', 'https://coachgo.herokuapp.com', 'http://127.0.0.1:9000', 'http://localhost:9000'];
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200 , https://coachgo.herokuapp.com'); 
+  res.setHeader('Access-Control-Allow-Origin', origin); 
   // res.setHeader('Access-Control-Allow-Origin', 'https://coachgo.herokuapp.com'); 
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
