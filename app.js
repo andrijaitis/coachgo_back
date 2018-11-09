@@ -7,8 +7,8 @@ var MongoStore = require('connect-mongo')(session);
 var port = process.env.PORT || 3000;
 var origin = 'https://coachgo.herokuapp.com';
 
-// mongoose.connect('mongodb://localhost/coach-database'); //localhost database
-mongoose.connect('mongodb://vidas:vidas123@coachgo-shard-00-01-dqxa6.mongodb.net:27017/coachgo?ssl=true&authSource=admin');
+mongoose.connect('mongodb://localhost/coach-database'); //localhost database
+// mongoose.connect('mongodb://vidas:vidas@coachgo-shard-00-01-dqxa6.mongodb.net:27017/coachgo?ssl=true&authSource=admin');
 
 
 
@@ -31,7 +31,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 var allowedOrigins = ['http://localhost:4200', 'https://coachgo.herokuapp.com'];
-if (port === 3000){origin = allowedOrigins[0]}
+if (port === 3000){origin = allowedOrigins[0]} else {origin = allowedOrigins[1]}
 
 
 app.use(function (req, res, next) {
