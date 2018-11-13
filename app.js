@@ -6,6 +6,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var port = process.env.PORT || 3000;
 var origin = 'https://coachgo.herokuapp.com';
+var cors = require('cors');
 
 mongoose.connect('mongodb://localhost/coach-database'); //localhost database
 // mongoose.connect('mongodb://vidas:vidas@coachgo-shard-00-01-dqxa6.mongodb.net:27017/coachgo?ssl=true&authSource=admin');
@@ -18,10 +19,16 @@ db.once('open', function () {
 console.log('connectio nsucess to db');
 });
 
+app.use(cors({
+origin: ["http://localhost:4200"],
+credentials: true,
+}));
+
 app.use(session({
   secret: 'mantDubbbz',
-  resave: true,
+  resave: false,
   saveUninitialized: false,
+  cookie: { secure: true },
   store: new MongoStore({
     mongooseConnection: db
   })
@@ -34,13 +41,13 @@ var allowedOrigins = ['http://localhost:4200', 'https://coachgo.herokuapp.com'];
 // if (port === 3000){origin = allowedOrigins[0]} else {origin = allowedOrigins[1]}
 
 
-app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200'); 
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  next();
-});
+// app.use(function (req, res, next) {
+//   res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200'); 
+//   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+//   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+//   res.setHeader('Access-Control-Allow-Credentials', true);
+//   next();
+// });
 
 var routes = require('./routes/router');
 

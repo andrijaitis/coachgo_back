@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
+var Athlete = require('../models/athlete');
 
 router.get('/logout', function (req, res, next) {
   if (req.session) {
@@ -25,8 +26,16 @@ router.post('/login', function (req, res, next) {
         // return next(err);
         return res.json({ status: false });
       } else {
+        console.log( req.session.userId);
+        // req.session.cookie.expires = false;
+        req.session.path = '/addathlete';
+        req.session.sameSite = false;
         req.session.userId = user._id;
-        return res.json({ status: true });
+        console.log( req.session.userId);
+        // res.setHeader('Set-Cookie', `varlius` +' ='+ req.session.userId);
+        res.setHeader('user-email', req.session.userId);
+        // res.cookie('email', req.session.userId);
+        return res.json({ status: true, userId:  req.session.userId });
       }
     });
  
@@ -34,7 +43,8 @@ router.post('/login', function (req, res, next) {
 
 
 router.post('/register', function (req, res, next) {
-console.log(req.body);
+  console.log(req.get('Cookie'));
+// console.log(req.body);
   if (req.body.email &&
     req.body.firstName &&
     req.body.password ) {
@@ -46,6 +56,7 @@ console.log(req.body);
       password: req.body.password,
       type: 'coach'
     }
+
 
     User.create(userData, function (error, user) {
       if (error) {
@@ -66,8 +77,13 @@ console.log(req.body);
 
 
 router.post('/athlete', function (req, res) {
+  console.log(req.headers);
+  newAthlete = req.body;
+  newAthlete.coach = req.session.userId;
+  Athlete.create(newAthlete, function (error, athlete) {
+ 
+  });
 
-  console.log(req.body);
   return res.json({ status: true });
 });
 
@@ -117,21 +133,14 @@ router.get('/athletes', function (req, res) {
 
 
 router.get('/test', function (req, res, next) {
-  return res.send({
-    id: '1',
-    email: 'bybis@dd.t',
-    activity: 'Football',
-    firstName: 'Hansas',
-    lastName: 'Andersenas',
-    age: '24',
-    height: '181',
-    dateCreated: '20140313T00:00:00',
-    sport: 'football',
-    phone: '123456',
-    active: 'true'
-  },
-  );
+
+  console.log(req.session.userId);
+  console.log(req.session.cookie);
+    return res.send(req.session.userId);
 });
+
+
+
 
 
 module.exports = router;
