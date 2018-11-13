@@ -34,7 +34,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //   next();
 // });
 
-const routes = require('./routes/router');
+const routes = require('./routes/authentication');
 const athleteRoutes = require('./routes/athlete');
 
 app.use('/api/', routes,athleteRoutes);
