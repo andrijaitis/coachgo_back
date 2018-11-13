@@ -3,6 +3,7 @@ var router = express.Router();
 var User = require('../models/user');
 var Athlete = require('../models/athlete');
 const jwt = require('jsonwebtoken');
+const isAuth = require('../middleware/isAuth');
 
 // router.get('/logout', function (req, res, next) {
 //   if (req.session) {
@@ -78,8 +79,8 @@ router.post('/register', function (req, res, next) {
 
 
 
-router.post('/athlete', function (req, res) {
-  console.log(req.headers);
+router.post('/athlete', isAuth, function (req, res) {
+  
   newAthlete = req.body;
     Athlete.create(newAthlete, function (error, athlete) {
  
@@ -88,7 +89,7 @@ router.post('/athlete', function (req, res) {
   return res.json({ status: true });
 });
 
-router.get('/athletes', function (req, res) {
+router.get('/athletes', isAuth, function (req, res) {
   return res.send([{
     id: '1',
     email: 'bybis@dd.t',
