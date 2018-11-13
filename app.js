@@ -1,9 +1,10 @@
 var express = require('express');
+
+
 var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
-var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
+
 var port = process.env.PORT || 3000;
 var origin = 'https://coachgo.herokuapp.com';
 var cors = require('cors');
@@ -24,15 +25,7 @@ origin: ["http://localhost:4200"],
 credentials: true,
 }));
 
-app.use(session({
-  secret: 'mantDubbbz',
-  resave: false,
-  saveUninitialized: false,
-  cookie: { secure: true },
-  store: new MongoStore({
-    mongooseConnection: db
-  })
-}));
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

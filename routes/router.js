@@ -2,18 +2,19 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 var Athlete = require('../models/athlete');
+const jwt = require('jsonwebtoken');
 
-router.get('/logout', function (req, res, next) {
-  if (req.session) {
-    req.session.destroy(function (err) {
-      if (err) {
-        return next(err);
-      } else {
-        return res.send('logged out');
-      }
-    });
-  }
-});
+// router.get('/logout', function (req, res, next) {
+//   if (req.session) {
+//     req.session.destroy(function (err) {
+//       if (err) {
+//         return next(err);
+//       } else {
+//         return res.send('logged out');
+//       }
+//     });
+//   }
+// });
 
 
 router.post('/login', function (req, res, next) {
@@ -26,16 +27,18 @@ router.post('/login', function (req, res, next) {
         // return next(err);
         return res.json({ status: false });
       } else {
-        console.log( req.session.userId);
-        // req.session.cookie.expires = false;
-        req.session.path = '/addathlete';
-        req.session.sameSite = false;
-        req.session.userId = user._id;
-        console.log( req.session.userId);
-        // res.setHeader('Set-Cookie', `varlius` +' ='+ req.session.userId);
-        res.setHeader('user-email', req.session.userId);
-        // res.cookie('email', req.session.userId);
-        return res.json({ status: true, userId:  req.session.userId });
+
+
+        const token = jwt.sign(
+          {
+            email: user.email,
+            userId: user._id.toString()
+          },
+          'mantDubbbz',
+          { expiresIn: '1h' }
+        );
+        res.status(200).json({status: true ,token: token, userId: user._id.toString() });
+        // return res.json({ status: true, userId:  req.session.userId });
       }
     });
  
@@ -64,7 +67,6 @@ router.post('/register', function (req, res, next) {
         return next(error);
       } else {
         console.log('success');
-        req.session.userId = user._id;
         return res.json({ status: true });
       }
     });
@@ -79,8 +81,7 @@ router.post('/register', function (req, res, next) {
 router.post('/athlete', function (req, res) {
   console.log(req.headers);
   newAthlete = req.body;
-  newAthlete.coach = req.session.userId;
-  Athlete.create(newAthlete, function (error, athlete) {
+    Athlete.create(newAthlete, function (error, athlete) {
  
   });
 
@@ -134,9 +135,8 @@ router.get('/athletes', function (req, res) {
 
 router.get('/test', function (req, res, next) {
 
-  console.log(req.session.userId);
-  console.log(req.session.cookie);
-    return res.send(req.session.userId);
+
+    return res.send('smth');
 });
 
 
