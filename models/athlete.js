@@ -1,22 +1,14 @@
-var mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const mongoose = require('mongoose');
+
 
 var AthleteSchema = new mongoose.Schema({
-    coach: {
-        type: String,
-        required: false,
-    },
-    id: {
+    userId: {
         type: String,
         required: false,
     },
     email: {
         type: String,
         required: false,
-  },
-  activity: {
-    type: String,
-    required: false,
   },
   firstName: {
     type: String,
