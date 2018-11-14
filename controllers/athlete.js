@@ -64,7 +64,7 @@ exports.createAthlete = (req, res, next) => {
       })
       .then(result => {
         res.status(201).json({
-          message: 'Post created successfully!',
+          message: 'Athlete created successfully!',
           athlete: athlete,
           creator: { _id: creator._id, name: creator.firstName }
         });
@@ -77,44 +77,61 @@ exports.createAthlete = (req, res, next) => {
       });
   };
 
+// exports.getAthletes = (req, res, next) => {
+//     return res.send([{
+//       id: '1',
+//       email: 'bybis@dd.t',
+//       activity: 'Football',
+//       firstName: 'Hansas',
+//       lastName: 'Andersenas',
+//       age: '24',
+//       height: '181',
+//       dateCreated: '20140313T00:00:00',
+//       sport: 'football',
+//       phone: '123456',
+//       active: 'true'
+//     },
+//     {
+//       id: '2',
+//       email: 'hans@gmail.com',
+//       activity: 'Basketball',
+//       firstName: 'Endeman',
+//       lastName: 'Skrautenwagen',
+//       age: '32',
+//       height: '200',
+//       dateCreated: '20140313T00:00:00',
+//       sport: 'Basketball',
+//       phone: '84654',
+//       active: 'false'
+//     },
+//     {
+//       id: '2',
+//       email: 'hans@gmail.com',
+//       activity: 'Cricket',
+//       firstName: 'Mantas',
+//       lastName: 'Lopas',
+//       age: '32',
+//       height: '200',
+//       dateCreated: '20140313T00:00:00',
+//       sport: 'Basketball',
+//       phone: '84654',
+//       active: 'false'
+//     }]);
+//   }
+
 exports.getAthletes = (req, res, next) => {
-    return res.send([{
-      id: '1',
-      email: 'bybis@dd.t',
-      activity: 'Football',
-      firstName: 'Hansas',
-      lastName: 'Andersenas',
-      age: '24',
-      height: '181',
-      dateCreated: '20140313T00:00:00',
-      sport: 'football',
-      phone: '123456',
-      active: 'true'
-    },
-    {
-      id: '2',
-      email: 'hans@gmail.com',
-      activity: 'Basketball',
-      firstName: 'Endeman',
-      lastName: 'Skrautenwagen',
-      age: '32',
-      height: '200',
-      dateCreated: '20140313T00:00:00',
-      sport: 'Basketball',
-      phone: '84654',
-      active: 'false'
-    },
-    {
-      id: '2',
-      email: 'hans@gmail.com',
-      activity: 'Cricket',
-      firstName: 'Mantas',
-      lastName: 'Lopas',
-      age: '32',
-      height: '200',
-      dateCreated: '20140313T00:00:00',
-      sport: 'Basketball',
-      phone: '84654',
-      active: 'false'
-    }]);
-  }
+
+  Athlete.find()
+    .then(athletes => {
+      res.status(200).json({
+        message: 'Fetched athletes successfully.',
+        athletes: athletes,
+      });
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
