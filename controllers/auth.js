@@ -18,7 +18,7 @@ exports.login = (req, res, next) => {
               userId: user._id.toString()
             },
             'mantDubbbz',
-            { expiresIn: '1h' }
+            { expiresIn: '10h' }
           );
           res.status(200).json({status: true ,token: token, userId: user._id.toString() });
           // return res.json({ status: true, userId:  req.session.userId });

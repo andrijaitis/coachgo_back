@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
 
 var AthleteSchema = new mongoose.Schema({
-    userId: {
-        type: String,
-        required: false,
-    },
+    creator: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
+      },
     email: {
         type: String,
         required: false,

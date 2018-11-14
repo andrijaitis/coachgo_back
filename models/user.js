@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
+
 
 var UserSchema = new mongoose.Schema({
   email: {
@@ -27,7 +29,10 @@ var UserSchema = new mongoose.Schema({
   type: {
     type: String,
     required: false,
-  }
+  },
+  athletes: [
+
+  ]
 });
 
 
