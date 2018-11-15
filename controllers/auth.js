@@ -5,6 +5,8 @@ exports.login = (req, res, next) => {
   
     (req.body.email && req.body.password) 
       User.authenticate(req.body.email, req.body.password, function (error, user) {
+      console.log(req.body);
+      console.log
         if (error || !user) {
           var err = new Error('Wrong email or password.');
           err.status = 401;

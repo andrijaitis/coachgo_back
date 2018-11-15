@@ -31,8 +31,10 @@ var UserSchema = new mongoose.Schema({
     required: false,
   },
   athletes: [
-
-  ]
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Athlete'
+    }]
 });
 
 
@@ -60,6 +62,8 @@ UserSchema.statics.authenticate = function (email, password, callback) {
 
 UserSchema.pre('save', function (next) {
   var user = this;
+  if (!user.isModified('password')) return next();
+
   bcrypt.hash(user.password, 10, function (err, hash) {
     if (err) {
       return next(err);
@@ -68,6 +72,7 @@ UserSchema.pre('save', function (next) {
     next();
   })
 });
+
 
 
 var User = mongoose.model('User', UserSchema);
