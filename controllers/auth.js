@@ -17,12 +17,13 @@ exports.login = (req, res, next) => {
           const token = jwt.sign(
             {
               email: user.email,
-              userId: user._id.toString()
+              userId: user._id.toString(),
             },
             'mantDubbbz',
-            { expiresIn: '1h' }
+            { expiresIn: '5h' }
           );
-          res.status(200).json({status: true ,token: token, userId: user._id.toString() });
+          console.log(token.exp);
+          res.status(200).json({status: true ,token: token, userId: user._id.toString()});
           // return res.json({ status: true, userId:  req.session.userId });
         }
       });
