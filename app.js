@@ -15,8 +15,11 @@ db.once('open', function () {
 console.log('DB connect success');
 });
 
+const origin = 'https://coachgo.herokuapp.com';
+var allowedOrigins = ['http://localhost:4200', 'https://coachgo.herokuapp.com'];
+if (port === 3000){origin = allowedOrigins[0]} else {origin = allowedOrigins[1]}
 app.use(cors({
-origin: ["http://localhost:4200"],
+origin: [origin],
 credentials: true,
 }));
 
