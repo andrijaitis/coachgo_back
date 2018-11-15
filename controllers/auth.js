@@ -8,8 +8,8 @@ exports.login = (req, res, next) => {
         if (error || !user) {
           var err = new Error('Wrong email or password.');
           err.status = 401;
-          // return next(err);
-          return res.json({ status: false });
+          return next(err);
+          // return res.json({ status: false });
         } else {
   
           const token = jwt.sign(
@@ -18,7 +18,7 @@ exports.login = (req, res, next) => {
               userId: user._id.toString()
             },
             'mantDubbbz',
-            { expiresIn: '10h' }
+            { expiresIn: '1h' }
           );
           res.status(200).json({status: true ,token: token, userId: user._id.toString() });
           // return res.json({ status: true, userId:  req.session.userId });
