@@ -5,8 +5,9 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const port = process.env.PORT || 3000;
 
-mongoose.connect('mongodb://localhost/coach-database'); //localhost database
-// mongoose.connect('mongodb://vidas:vidas@coachgo-shard-00-01-dqxa6.mongodb.net:27017/coachgo?ssl=true&authSource=admin');
+// mongoose.connect('mongodb://localhost/coach-database'); //localhost database
+mongoose.connect('mongodb://vidas:vidas123@coachgo-shard-00-00-dqxa6.mongodb.net:27017/coachgo?ssl=true&authSource=admin');
+
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
