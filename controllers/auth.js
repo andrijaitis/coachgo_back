@@ -10,8 +10,8 @@ exports.login = (req, res, next) => {
         if (error || !user) {
           var err = new Error('Wrong email or password.');
           err.status = 401;
-          return next(err);
-          // return res.json({ status: false });
+          // return next(err);
+          return res.json({ status: false, err: err });
         } else {
   
           const token = jwt.sign(
