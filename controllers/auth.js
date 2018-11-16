@@ -23,7 +23,7 @@ exports.login = (req, res, next) => {
             { expiresIn: '5h' }
           );
           console.log(token.exp);
-          res.status(200).json({status: true ,token: token, userId: user._id.toString()});
+          res.status(200).json({status: true ,token: token, userId: user._id.toString(), usrEmail: user.email.toString()});
           // return res.json({ status: true, userId:  req.session.userId });
         }
       });
