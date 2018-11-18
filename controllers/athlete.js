@@ -181,7 +181,7 @@ exports.getAthlete = (req, res, next) => {
         error.statusCode = 404;
         throw error;
       }
-      res.status(200).json({ message: 'Athlete fetched.', athlete: athlete });
+      res.status(200).json( athlete );
     })
     .catch(err => {
       if (!err.statusCode) {
@@ -222,12 +222,7 @@ exports.updateAthlete = (req, res, next) => {
         error.statusCode = 403;
         throw error;
       }
-      if (imageUrl !== athlete.imageUrl) {
-        clearImage(athlete.imageUrl);
-      }
-      athlete.title = title;
-      athlete.imageUrl = imageUrl;
-      athlete.content = content;
+
       athlete.email = email;
       athlete.firstName = firstName;
       athlete.lastName = lastName;
