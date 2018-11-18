@@ -7,4 +7,8 @@ router.post('/athlete', isAuth, athleteController.createAthlete);
   
 router.get('/athletes', isAuth, athleteController.getAthletes);
 
+router.delete('/athlete/:athleteId', isAuth, athleteController.deleteAthlete);
+
+
+
   module.exports = router;

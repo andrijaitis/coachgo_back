@@ -44,11 +44,12 @@ exports.createAthlete = (req, res, next) => {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         age: req.body.age,
-        height: 'undefined',
-        dateCreated: req.body.dateCreated,
+        height: req.body.height,
+        dateCreated: 123,
         sport: req.body.sport,
         phone:req.body.phone,
-        active: 'false'
+        active: req.body.active,
+        gender: req.body.gender
     });
     athlete
       .save()
@@ -126,6 +127,41 @@ exports.getAthletes = (req, res, next) => {
   Athlete.find({ 'creator': req.userId })
     .then(athletes => {
       res.status(200).json(athletes);
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+exports.deleteAthlete = (req, res, next) => {
+  const athleteId = req.params.athleteId;
+  Athlete.findById(athleteId)
+    .then(post => {
+      if (!post) {
+        const error = new Error('Could not find post.');
+        error.statusCode = 404;
+        throw error;
+      }
+      if (post.creator.toString() !== req.userId) {
+        const error = new Error('Not authorized!');
+        error.statusCode = 403;
+        throw error;
+      }
+      console.log('mofo remowed');
+      return Athlete.findByIdAndRemove(athleteId);
+    })
+    .then(result => {
+      return User.findById(req.userId);
+    })
+    .then(user => {
+      user.athletes.pull(athleteId);
+      return user.save();
+    })
+    .then(result => {
+      res.status(200).json({ message: 'Deleted athlete.' });
     })
     .catch(err => {
       if (!err.statusCode) {

@@ -10,7 +10,7 @@ var AthleteSchema = new mongoose.Schema({
       },
     email: {
         type: String,
-        required: false,
+        required: true,
   },
   firstName: {
     type: String,
@@ -45,6 +45,10 @@ var AthleteSchema = new mongoose.Schema({
     required: false,
   },
   id: {
+    type: String,
+    required: false,
+  },
+  gender: {
     type: String,
     required: false,
   },
