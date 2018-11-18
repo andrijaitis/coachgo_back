@@ -139,13 +139,13 @@ exports.getAthletes = (req, res, next) => {
 exports.deleteAthlete = (req, res, next) => {
   const athleteId = req.params.athleteId;
   Athlete.findById(athleteId)
-    .then(post => {
-      if (!post) {
-        const error = new Error('Could not find post.');
+    .then(athlete => {
+      if (!athlete) {
+        const error = new Error('Could not find athlete.');
         error.statusCode = 404;
         throw error;
       }
-      if (post.creator.toString() !== req.userId) {
+      if (athlete.creator.toString() !== req.userId) {
         const error = new Error('Not authorized!');
         error.statusCode = 403;
         throw error;
@@ -162,6 +162,85 @@ exports.deleteAthlete = (req, res, next) => {
     })
     .then(result => {
       res.status(200).json({ message: 'Deleted athlete.' });
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+
+exports.getAthlete = (req, res, next) => {
+  const athleteId = req.params.athleteId;
+  Athlete.findById(athleteId)
+    .then(athlete => {
+      if (!athlete) {
+        const error = new Error('Could not find athlete.');
+        error.statusCode = 404;
+        throw error;
+      }
+      res.status(200).json({ message: 'Athlete fetched.', athlete: athlete });
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+
+exports.updateAthlete = (req, res, next) => {
+  const athleteId = req.params.athleteId;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = new Error('Validation failed, entered data is incorrect.');
+    error.statusCode = 422;
+    throw error;
+  }
+  const email = req.body.email;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const age = req.body.age;
+  const height = req.body.height;
+  const sport = req.body.sport;
+  const phone = req.body.phone;
+  const active = req.body.active;
+  const gender = req.body.gender;
+ 
+  Athlete.findById(athleteId)
+    .then(athlete => {
+      if (!athlete) {
+        const error = new Error('Could not find athlete.');
+        error.statusCode = 404;
+        throw error;
+      }
+      if (athlete.creator.toString() !== req.userId) {
+        const error = new Error('Not authorized!');
+        error.statusCode = 403;
+        throw error;
+      }
+      if (imageUrl !== athlete.imageUrl) {
+        clearImage(athlete.imageUrl);
+      }
+      athlete.title = title;
+      athlete.imageUrl = imageUrl;
+      athlete.content = content;
+      athlete.email = email;
+      athlete.firstName = firstName;
+      athlete.lastName = lastName;
+      athlete.age = age;
+      athlete.height = height;
+      athlete.sport = sport;
+      athlete.phone = phone;
+      athlete.active = active;
+      athlete.gender = gender;
+      return athlete.save();
+    })
+    .then(result => {
+      res.status(200).json({ message: 'Athlete updated!', athlete: result });
     })
     .catch(err => {
       if (!err.statusCode) {
