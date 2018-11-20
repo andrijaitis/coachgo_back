@@ -28,7 +28,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 var allowedOrigins = ['http://localhost:4200', 'https://coachgo.herokuapp.com'];
 app.use(function (req, res, next) {
-  res.setHeader('Access-Control-Allow-Origin', allowedOrigins[1]); 
+  res.setHeader('Access-Control-Allow-Origin', allowedOrigins[0]); 
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   // res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
@@ -38,8 +38,9 @@ app.use(function (req, res, next) {
 
 const routes = require('./routes/authentication');
 const athleteRoutes = require('./routes/athlete');
+const trainingRoutes = require('./routes/training');
 
-app.use('/api/', routes,athleteRoutes);
+app.use('/api/', routes,athleteRoutes,trainingRoutes);
 
 app.use(function (req, res, next) {
   var err = new Error('File Not Found');
