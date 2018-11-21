@@ -54,7 +54,7 @@ var AthleteSchema = new mongoose.Schema({
   },
   trainings: [
     {
-      type: Schema.Types.ObjectId,
+      type: Object,
       ref: 'Basketball'
     }]
 });

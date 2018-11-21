@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
-var BasketballSchema = new mongoose.Schema({
+var FootballSchema = new mongoose.Schema({
     athlete: {
         type: Schema.Types.ObjectId,
         ref: 'Athlete',
@@ -13,35 +13,35 @@ var BasketballSchema = new mongoose.Schema({
             ref: 'User',
             required: true
           },
-    mpg: {
+          aerialswon: {
         type: Number,
         required: true,
   },
-    fg: {
+  assists: {
         type: Number,
         required: true,
   },
-  threep: {
+  goals: {
         type: Number,
         required: true,
   },
-  ft: {
+  mins: {
         type: Number,
         required: true,
   },
-  ppg: {
+  motm: {
         type: Number,
         required: true,
   },
-  rpg: {
+  red: {
         type: Number,
         required: true,
   },
-  apg: {
+  spg: {
         type: Number,
         required: true,
   },
-  bpg: {
+  yel: {
         type: Number,
         required: true,
   },
@@ -57,6 +57,6 @@ var BasketballSchema = new mongoose.Schema({
 });
 
 
-var Basketball = mongoose.model('Basketball', BasketballSchema);
-module.exports = Basketball;
+var Football = mongoose.model('Football', FootballSchema);
+module.exports = Football;
 

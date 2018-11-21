@@ -4,7 +4,9 @@ const isAuth = require('../middleware/isAuth');
 const trainingController = require('../controllers/training');
 const { body } = require('express-validator/check');
 
-router.post('/training', isAuth, trainingController.createTraining); 
+router.post('/training', isAuth, trainingController.createTrainingBasket);
+router.post('/trainings', isAuth, trainingController.getTrainings);
+router.get('/alltrainings', isAuth, trainingController.getAllTrainings); 
   
 
 

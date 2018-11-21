@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 
-var BasketballSchema = new mongoose.Schema({
+var FitnessSchema = new mongoose.Schema({
     athlete: {
         type: Schema.Types.ObjectId,
         ref: 'Athlete',
@@ -13,35 +13,19 @@ var BasketballSchema = new mongoose.Schema({
             ref: 'User',
             required: true
           },
-    mpg: {
+    squats: {
         type: Number,
         required: true,
   },
-    fg: {
+  pull: {
         type: Number,
         required: true,
   },
-  threep: {
+  push: {
         type: Number,
         required: true,
   },
-  ft: {
-        type: Number,
-        required: true,
-  },
-  ppg: {
-        type: Number,
-        required: true,
-  },
-  rpg: {
-        type: Number,
-        required: true,
-  },
-  apg: {
-        type: Number,
-        required: true,
-  },
-  bpg: {
+  kmr: {
         type: Number,
         required: true,
   },
@@ -57,6 +41,6 @@ var BasketballSchema = new mongoose.Schema({
 });
 
 
-var Basketball = mongoose.model('Basketball', BasketballSchema);
-module.exports = Basketball;
+var Fitness = mongoose.model('Fitness', FitnessSchema);
+module.exports = Fitness;
 
