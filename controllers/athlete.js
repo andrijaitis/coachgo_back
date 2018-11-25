@@ -145,6 +145,8 @@ exports.updateAthlete = (req, res, next) => {
   const phone = req.body.phone;
   const active = req.body.active;
   const gender = req.body.gender;
+  const disease = req.body.disease;
+
  
   Athlete.findById(athleteId)
     .then(athlete => {
@@ -168,6 +170,7 @@ exports.updateAthlete = (req, res, next) => {
       athlete.phone = phone;
       athlete.active = active;
       athlete.gender = gender;
+      athlete.disease.push({type:disease.type,description:disease.description});
       return athlete.save();
     })
     .then(result => {
@@ -180,3 +183,5 @@ exports.updateAthlete = (req, res, next) => {
       next(err);
     });
 };
+
+
