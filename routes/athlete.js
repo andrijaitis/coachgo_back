@@ -8,6 +8,8 @@ router.post('/athlete', isAuth, athleteController.createAthlete);
   
 router.get('/athletes', isAuth, athleteController.getAthletes);
 
+router.get('/injured', isAuth, athleteController.getinjured);
+
 router.get('/athlete/:athleteId', isAuth, athleteController.getAthlete);
 
 router.delete('/athlete/:athleteId', isAuth, athleteController.deleteAthlete);
@@ -41,6 +43,9 @@ router.put(
       .trim(),
   ],
   athleteController.updateAthlete
+);
+
+router.put('/athleteinjury/:athleteId', isAuth, athleteController.athleteInjury
 );
 
   module.exports = router;

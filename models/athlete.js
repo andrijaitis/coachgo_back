@@ -57,7 +57,7 @@ var AthleteSchema = new mongoose.Schema({
       type: Object,
       ref: 'Basketball'
     }],
-    disease: [
+    injuries: [
     {
       type: Object,
     }]

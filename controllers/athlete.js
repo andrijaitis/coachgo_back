@@ -129,6 +129,7 @@ exports.getAthlete = (req, res, next) => {
 
 
 exports.updateAthlete = (req, res, next) => {
+  console.log(req.body);
   const athleteId = req.params.athleteId;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -145,7 +146,6 @@ exports.updateAthlete = (req, res, next) => {
   const phone = req.body.phone;
   const active = req.body.active;
   const gender = req.body.gender;
-  const disease = req.body.disease;
 
  
   Athlete.findById(athleteId)
@@ -170,7 +170,6 @@ exports.updateAthlete = (req, res, next) => {
       athlete.phone = phone;
       athlete.active = active;
       athlete.gender = gender;
-      athlete.disease.push({type:disease.type,description:disease.description});
       return athlete.save();
     })
     .then(result => {
@@ -185,3 +184,72 @@ exports.updateAthlete = (req, res, next) => {
 };
 
 
+
+
+exports.athleteInjury = (req, res, next) => {
+  console.log(req.body);
+  const athleteId = req.params.athleteId;
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    const error = new Error('Validation failed, entered data is incorrect.');
+    error.statusCode = 422;
+    throw error;
+  }
+ 
+  const injury = req.body.injury;
+ 
+  Athlete.findById(athleteId)
+    .then(athlete => {
+      if (!athlete) {
+        const error = new Error('Could not find athlete.');
+        error.statusCode = 404;
+        throw error;
+      }
+      if (athlete.creator.toString() !== req.userId) {
+        const error = new Error('Not authorized!');
+        error.statusCode = 403;
+        throw error;
+      }
+
+      athlete.injuries.push({type:injury.type,description:injury.description,activity:injury.activity});
+      return athlete.save();
+    })
+    .then(result => {
+      res.status(200).json({ message: 'Athlete updated!', athlete: result });
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
+
+
+
+
+exports.getinjured = (req, res, next) => {
+
+  console.log(req.userId);
+
+  Athlete.find({ 'creator': req.userId })
+    .then(athletes => {
+      // console.log(athletes[2].injuries.length)
+     const injuryResults= []
+      for (var i = 0; i < athletes.length; i++) {
+        injuryResults.push({
+          firstName: athletes[i].firstName,
+          numberOfIjuries: athletes[i].injuries.length
+        });
+      }
+
+      
+      res.status(200).json(injuryResults);
+    })
+    .catch(err => {
+      if (!err.statusCode) {
+        err.statusCode = 500;
+      }
+      next(err);
+    });
+};
