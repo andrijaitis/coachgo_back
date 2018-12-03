@@ -1,4 +1,4 @@
-# sample-task-back-end
+# Coach-go-back-end
 CoachGO back-end written with Express. This api not completed and cannot be used in a production
 
 ## Starting  server
