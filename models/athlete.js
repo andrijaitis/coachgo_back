@@ -3,14 +3,14 @@ const Schema = mongoose.Schema;
 
 
 var AthleteSchema = new mongoose.Schema({
-    creator: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
-      },
-    email: {
-        type: String,
-        required: true,
+  creator: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  email: {
+    type: String,
+    required: true,
   },
   firstName: {
     type: String,
@@ -57,7 +57,7 @@ var AthleteSchema = new mongoose.Schema({
       type: Object,
       ref: 'Basketball'
     }],
-    injuries: [
+  injuries: [
     {
       type: Object,
     }]
