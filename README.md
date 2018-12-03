@@ -12,44 +12,43 @@ Don't forget to start MongoDB server
 
 ## Auth endpoints 
 
-POST `/api/register - Register a new coach
+POST `/api/register` - Register a new coach
 
-POST `/api/login - Login for a coach
+POST `/api/login` - Login for a coach
 
-POST `/api/logout - Logout for coach
+POST `/api/logout` - Logout for coach
 
- data to post {}///
- will add later
  
 ## Athlete endpoints (must be auth in order to use)
 
-POST `/api/athlete - Create a new athlete
+POST `/api/athlete` - Create a new athlete
 
-GET `/api/athletes - Returns all athletes for a specific coach
+GET `/api/athletes`- Returns all athletes for a specific coach
 
-GET `/api/injured - Data about all injured atheltes and their injuries
+GET `/api/injured` - Data about all injured atheltes and their injuries
 
-GET `/api/athlete/:athleteId - Get all data about athlete
+GET `/api/athlete/:athleteId` - Get all data about athlete
 
-PUT `/api/athlete/:athleteId - Update athlete
+PUT `/api/athlete/:athleteId` - Update athlete
 
-PUT `/athleteinjury/:athleteId` - Add injurie to a specific athlete
+PUT `/athleteinjury/:athleteId` - Add injury to a specific athlete
 
 DELETE `/athleteinjury/:athleteId` - Delete specific athlete by ID
 
 ## Training endpoints (must be auth in order to use)
 
-POST `/api/training - Create a new training
+POST `/api/training` - Create a new training
 
-POST `/api/trainings - Get trainings for specific coach
+POST `/api/trainings` - Get trainings for specific coach
 
-GET `/api/alltraining - Get all trainings
+GET `/api/alltraining` - Get all trainings
 
-PUT `/api/training/:trainingId - Update training
+PUT `/api/training/:trainingId` - Update training
 
-DELETE `/api/training/:trainingId - Delete training
+DELETE `/api/training/:trainingId` - Delete training
 
-
+ data to post {}///
+ will add later
 
 
 
