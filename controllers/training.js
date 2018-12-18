@@ -4,6 +4,7 @@ const User = require('../models/user');
 const Basketball = require('../models/basketball');
 const Fitness = require('../models/fitness');
 const Football = require('../models/football');
+const Swimming = require('../models/swimming');
 const { validationResult } = require('express-validator/check');
 
 
@@ -51,6 +52,17 @@ exports.createTrainingBasket = (req, res, next) => {
     trainingdate: req.body.trainingdate,
     training: req.body.training,
   });
+  const swimming = new Swimming({
+    athlete: req.body.id,
+    creator: req.userId,
+    technique: req.body.technique,
+    rounds: req.body.rounds,
+    time: req.body.time,
+    technique: req.body.technique,
+
+    trainingdate: req.body.trainingdate,
+    training: req.body.training,
+  });
   const football = new Football({
     athlete: req.body.id,
     creator: req.userId,
@@ -71,6 +83,9 @@ exports.createTrainingBasket = (req, res, next) => {
     newTraining = fitness;
   } else if (trainingType === 'football') {
     newTraining = football;
+  
+  } else if (trainingType === 'swimming') {
+    newTraining = swimming;
   }
 
   Athlete.findById(req.body.id)
