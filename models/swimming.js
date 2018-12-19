@@ -35,6 +35,19 @@ var SwimmingSchema = new mongoose.Schema({
         type: String,
         required: false,
   },
+  notes: {
+        type: String,
+        required: false,
+  },
+  done: {
+      type: String,
+      required: false,
+},
+equipment: {
+      type: String,
+      required: false,
+},
+  
   
 });
 

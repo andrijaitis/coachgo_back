@@ -45,8 +45,9 @@ router.put(
   athleteController.updateAthlete
 );
 
-router.put('/athleteinjury/:athleteId', isAuth, athleteController.athleteInjury
-);
+
+router.put('/athleteinjury/:athleteId', isAuth, athleteController.athleteInjury);
+router.put('/updatetraining/:athleteId', isAuth, athleteController.updateTraining);
 
   module.exports = router;
 

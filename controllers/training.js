@@ -41,6 +41,10 @@ exports.createTrainingBasket = (req, res, next) => {
     bpg: req.body.bpg,
     trainingdate: req.body.trainingdate,
     training: req.body.training,
+
+    notes: req.body.notes,
+    done: req.body.done,
+    equipment: req.body.equipment,
   });
   const fitness = new Fitness({
     athlete: req.body.id,
@@ -51,6 +55,10 @@ exports.createTrainingBasket = (req, res, next) => {
     kmr: req.body.kmr,
     trainingdate: req.body.trainingdate,
     training: req.body.training,
+
+    notes: req.body.notes,
+    done: req.body.done,
+    equipment: req.body.equipment,
   });
   const swimming = new Swimming({
     athlete: req.body.id,
@@ -59,9 +67,12 @@ exports.createTrainingBasket = (req, res, next) => {
     rounds: req.body.rounds,
     time: req.body.time,
     technique: req.body.technique,
-
     trainingdate: req.body.trainingdate,
     training: req.body.training,
+
+    notes: req.body.notes,
+    done: req.body.done,
+    equipment: req.body.equipment,
   });
   const football = new Football({
     athlete: req.body.id,
@@ -77,6 +88,9 @@ exports.createTrainingBasket = (req, res, next) => {
     motm: req.body.motm,
     trainingdate: req.body.trainingdate,
     training: req.body.training,
+    notes: req.body.notes,
+    done: req.body.done,
+    equipment: req.body.equipment,
   });
   let newTraining = basketball;
   if (trainingType === 'fitness') {

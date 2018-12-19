@@ -225,7 +225,46 @@ exports.athleteInjury = (req, res, next) => {
     });
 };
 
+exports.updateTraining = (req, res, next) => {
+  const athleteId = req.params.athleteId;
 
+  const _id = req.body._id;
+
+  Athlete.findById(athleteId)
+  .then(athlete => {
+    if (!athlete) {
+      const error = new Error('Could not find athlete.');
+      error.statusCode = 404;
+      throw error;
+    }
+    if (athlete.creator.toString() !== req.userId) {
+      const error = new Error('Not authorized!');
+      error.statusCode = 403;
+      throw error;
+    }
+
+    const training = athlete.trainings.shift( training => training._id == _id );
+    athlete.trainings.push(req.body)
+    athlete.save();
+
+      return training
+  })
+  .then(training => {
+   
+    res.status(200).json({ message: 'Athlete trainings updated!', training: training });
+  })
+
+
+
+  .catch(err => {
+    if (!err.statusCode) {
+      err.statusCode = 500;
+    }
+    next(err);
+  });
+
+
+};
 
 
 exports.getinjured = (req, res, next) => {
