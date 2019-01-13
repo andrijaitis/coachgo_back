@@ -5,8 +5,10 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const port = process.env.PORT || 3000;
 
+const authenticationController = require('./controllers/auth');
+
 // mongoose.connect('mongodb://localhost/coach-database'); //localhost database
-mongoose.connect('mongodb://vidas:vidas123@coachgo-shard-00-00-dqxa6.mongodb.net:27017/coachgo?ssl=true&authSource=admin');
+mongoose.connect('mongodb://vidas:vidas123@coachgo-shard-00-01-dqxa6.mongodb.net:27017/coachgo?ssl=true&authSource=admin');
 
 
 const db = mongoose.connection;
@@ -41,6 +43,15 @@ const athleteRoutes = require('./routes/athlete');
 const trainingRoutes = require('./routes/training');
 
 app.use('/api/', routes,athleteRoutes,trainingRoutes);
+
+
+app.route("/login")
+    .post(authenticationController.login);
+
+
+
+
+
 
 app.use(function (req, res, next) {
   var err = new Error('File Not Found');
